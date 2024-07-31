@@ -1,0 +1,21 @@
+﻿@model IEnumerable<HealthDataManagement.Models.SomeEntity>
+
+<h2>SomeEntities</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create New</a>

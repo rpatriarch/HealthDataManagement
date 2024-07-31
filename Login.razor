@@ -1,0 +1,49 @@
+﻿@page "/login"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using HealthDataManagement.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager Navigation
+
+<EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="loginModel.Email" />
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Handle failed login
+        }
+    }
+
+    public class LoginModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
+}

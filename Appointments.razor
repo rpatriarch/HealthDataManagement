@@ -1,0 +1,56 @@
+﻿@page "/appointments"
+@inherits LayoutComponentBase
+
+<h3>Appointments</h3>
+<button class="btn btn-primary" @onclick="CreateAppointment">New Appointment</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Doctor</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in appointments)
+        {
+            <tr>
+                <td>@appointment.Date</td>
+                <td>@appointment.Doctor</td>
+                <td>
+                    <button class="btn btn-secondary" @onclick="() => EditAppointment(appointment.Id)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteAppointment(appointment.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Appointment> appointments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Load appointments from database
+        appointments = new List<Appointment>
+        {
+            new Appointment { Id = 1, Date = DateTime.Now, Doctor = "Dr. Smith" },
+            new Appointment { Id = 2, Date = DateTime.Now.AddDays(1), Doctor = "Dr. Jones" }
+        };
+    }
+
+    private void CreateAppointment()
+    {
+        // Code to create a new appointment
+    }
+
+    private void EditAppointment(int id)
+    {
+        // Code to edit an appointment
+    }
+
+    private void DeleteAppointment(int id)
+    {
+        // Code to delete an appointment
+    }
+}

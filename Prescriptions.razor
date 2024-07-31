@@ -1,0 +1,56 @@
+﻿@page "/prescriptions"
+@inherits LayoutComponentBase
+
+<h3>Prescriptions</h3>
+<button class="btn btn-primary" @onclick="CreatePrescription">New Prescription</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Medication</th>
+            <th>Date Prescribed</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prescription in prescriptions)
+        {
+            <tr>
+                <td>@prescription.Medication</td>
+                <td>@prescription.DatePrescribed</td>
+                <td>
+                    <button class="btn btn-secondary" @onclick="() => EditPrescription(prescription.Id)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeletePrescription(prescription.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Prescription> prescriptions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Load prescriptions from database
+        prescriptions = new List<Prescription>
+        {
+            new Prescription { Id = 1, Medication = "Medication A", DatePrescribed = DateTime.Now },
+            new Prescription { Id = 2, Medication = "Medication B", DatePrescribed = DateTime.Now.AddDays(1) }
+        };
+    }
+
+    private void CreatePrescription()
+    {
+        // Code to create a new prescription
+    }
+
+    private void EditPrescription(int id)
+    {
+        // Code to edit a prescription
+    }
+
+    private void DeletePrescription(int id)
+    {
+        // Code to delete a prescription
+    }
+}
